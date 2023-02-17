@@ -8,6 +8,7 @@ import { contract_abi } from '../contract/abi'
 // import '../solidity/NameContract'
 
 const Web3 = require("web3");
+console.log("url: ", window.ethereum)
 const web3 = new Web3(window.ethereum);
 
 const ConnectWallet = () => {
@@ -28,9 +29,19 @@ const ConnectWallet = () => {
         else {
             console.log("Please install metamask extension!!!");
         }
+
+        // if (typeof web3 !== "undefined") {
+        //     const web3js = new Web3(web3.currentProvider);
+        // }
+        // else {
+        //     console.log("warning for install metamask.");
+        // }
     }
 
     const getBalance = () => {
+
+        // let bal = window.ethereum.getBalance(0x58C70742281819d541CF63cc0aC657372D2A5F06, "latest");
+        console.log("bal: ", web3.eth.getBalance("0x58C70742281819d541CF63cc0aC657372D2A5F06", "latest"));
         window.ethereum.request({ method: 'eth_getBalance', params: [address, 'latest'] }).then(balance => {
             // Return string value to convert it into int balance
             console.log("balance: ", balance)
@@ -62,7 +73,6 @@ const ConnectWallet = () => {
             });
             console.log(currentChainId)
             console.log(targetNetworkId)
-
             // return true if network id is the same
             if (currentChainId === targetNetworkId) return true;
             // return false is network id is different
